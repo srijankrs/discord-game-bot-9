@@ -5,8 +5,8 @@ package constants;
  */
 public class ApplicationConstants {
 
-  public static final String QUIT = "/quit";
-  public static final String START = "/start";
+  public static final String QUIT = "!quit";
+  public static final String START = "!start";
   public static final String RIGHT = "d";
   public static final String LEFT = "a";
   public static final String UP = "w";
