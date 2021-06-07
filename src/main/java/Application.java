@@ -21,6 +21,8 @@ import java.util.Set;
 
 import static constants.ApplicationConstants.DOWN;
 import static constants.ApplicationConstants.DOWN2;
+import static constants.ApplicationConstants.INSTRUCTIONS;
+import static constants.ApplicationConstants.INSTRUCTIONS2;
 import static constants.ApplicationConstants.LEFT;
 import static constants.ApplicationConstants.LEFT2;
 import static constants.ApplicationConstants.QUIT;
@@ -32,6 +34,7 @@ import static constants.ApplicationConstants.UP2;
 import static helper.JDAHelper.getBoardEmbed;
 import static helper.JDAHelper.getExitEmbed;
 import static helper.JDAHelper.getGameOverEmbed;
+import static helper.JDAHelper.getInstructionEmbed;
 import static helper.JDAHelper.getWelcomeEmbed;
 import static helper.JDAHelper.getWinnerEmbed;
 
@@ -48,7 +51,7 @@ public class Application extends ListenerAdapter {
 
   private Worker worker = new Worker();
 
-  private Set<String> inputs = Set.of(UP, DOWN, RIGHT, LEFT, START, QUIT, UP2, DOWN2, RIGHT2, LEFT2);
+  private Set<String> inputs = Set.of(UP, DOWN, RIGHT, LEFT, START, QUIT, UP2, DOWN2, RIGHT2, LEFT2, INSTRUCTIONS, INSTRUCTIONS2);
 
   public static void main(String[] args) throws LoginException {
 
@@ -56,7 +59,7 @@ public class Application extends ListenerAdapter {
 
     JDABuilder.createLight(token)
       .addEventListeners(new Application())
-      .setActivity(Activity.playing("!9 - Game"))
+      .setActivity(Activity.playing("Nine Game"))
       .build();
 
 
@@ -66,20 +69,29 @@ public class Application extends ListenerAdapter {
   @Override
   public void onMessageReceived(MessageReceivedEvent event)
   {
-    System.out.println("hey");
     MessageChannel channel = event.getChannel();
     Message msg = event.getMessage();
 
-    if(event.getAuthor().isBot())
+    if(event.getAuthor().isBot() || !event.getAuthor().hasPrivateChannel())
       return;
+    System.out.println("hey");
     if(!inputs.contains(msg.getContentRaw().trim())) {
-      channel.sendMessage("Please enter `"+START+"` to start the game")
+      channel.sendMessage("Please enter `"+INSTRUCTIONS+"` for instructions")
         .queue(response -> {
           log.info("{}", response);
         });
       return;
     }
+
     String input = msg.getContentRaw();
+
+    if(INSTRUCTIONS.equalsIgnoreCase(input) || INSTRUCTIONS2.equalsIgnoreCase(input)){
+      channel.sendMessage(getInstructionEmbed())
+        .queue(response -> {
+          log.info("{}", response);
+        });
+      return;
+    }
 
 
     if(START.equalsIgnoreCase(input) ){
@@ -109,7 +121,7 @@ public class Application extends ListenerAdapter {
       return;
     }
     else if(!players.containsKey(event.getAuthor().getAvatarId())) {
-      channel.sendMessage("Please enter `"+START+"` to start the game")
+      channel.sendMessage("Please enter `"+INSTRUCTIONS+"` for instructions")
         .queue(response -> {
           log.info("{}", response);
         });

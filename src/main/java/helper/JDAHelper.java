@@ -12,9 +12,32 @@ public class JDAHelper {
   public static MessageEmbed getWelcomeEmbed(){
     EmbedBuilder embedBuilder = new EmbedBuilder();
 
-    embedBuilder.setTitle("Start Game");
+    embedBuilder.setTitle("Welcome !!!");
     embedBuilder.setColor(Color.BLUE);
-    embedBuilder.setDescription("Welcome !!!");
+    embedBuilder.setDescription("Please use the below commands to play the game-" +
+      "\n`i` or `I` - For Instructions" +
+      "\n`a` or `A` - Move all blocks to left" +
+      "\n`d` or `D` - Move all blocks to right" +
+      "\n`w` or `W` - Move all blocks to up" +
+      "\n`s` or `S` - Move all blocks to down" +
+      "\n`!quit` - To quit the game");
+
+    return embedBuilder.build();
+  }
+
+  public static MessageEmbed getInstructionEmbed(){
+    EmbedBuilder embedBuilder = new EmbedBuilder();
+
+    embedBuilder.setTitle("Instructions");
+    embedBuilder.setColor(Color.BLUE);
+    embedBuilder.setDescription("Please use the below commands to play the game-" +
+      "\n`i` or `I` - For Instructions" +
+      "\n`!start` - To start the game" +
+      "\n`a` or `A` - Move all blocks to left" +
+      "\n`d` or `D` - Move all blocks to right" +
+      "\n`w` or `W` - Move all blocks to up" +
+      "\n`s` or `S` - Move all blocks to down" +
+      "\n`!quit` - To quit the game");
 
     return embedBuilder.build();
   }

@@ -15,5 +15,7 @@ public class ApplicationConstants {
   public static final String LEFT2 = "A";
   public static final String UP2 = "W";
   public static final String DOWN2 = "S";
+  public static final String INSTRUCTIONS = "i";
+  public static final String INSTRUCTIONS2 = "I";
 
 }
