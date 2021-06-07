@@ -48,21 +48,21 @@ public class Application extends ListenerAdapter {
 
   public static void main(String[] args) throws LoginException {
 
-    String token = "ODUxMTAzNDU4ODMyODA5OTg0.YLzZ3Q.69iINMURDlGPkvS18RQievaJOfw";
+    String token = args[0];
 
     JDABuilder.createLight(token)
       .addEventListeners(new Application())
-      .setActivity(Activity.playing("!1024 - Game"))
+      .setActivity(Activity.playing("!9 - Game"))
       .build();
 
 
-    System.out.println("rint");
+    System.out.println("hey");
   }
 
   @Override
   public void onMessageReceived(MessageReceivedEvent event)
   {
-    System.out.println("rint");
+    System.out.println("hey");
     MessageChannel channel = event.getChannel();
     Message msg = event.getMessage();
 
@@ -125,7 +125,7 @@ public class Application extends ListenerAdapter {
     }
 
     try{
-      channel.sendMessage(player.toString())
+      channel.sendMessage(getBoardEmbed(player.toString()))
         .queue(response -> {
           log.info("{}", response);
           System.out.println(response);

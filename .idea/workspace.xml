@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9205d266-a6a2-449c-b2b8-30a1023f4895" name="Default Changelist" comment="" />
+    <list default="true" id="9205d266-a6a2-449c-b2b8-30a1023f4895" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarIssues.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarIssues.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Worker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Worker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/helper/JDAHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helper/JDAHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Application.class" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +78,7 @@
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Application" />
       <module name="game-1024" />
+      <option name="PROGRAM_PARAMETERS" value="ODUxMTAzNDU4ODMyODA5OTg0.YLzZ3Q.agQ7wHgt3Pj26pVHmc8JJv0eDBM" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -90,7 +102,9 @@
       <workItem from="1622988265489" duration="207000" />
       <workItem from="1622988600561" duration="2003000" />
       <workItem from="1622990726252" duration="1903000" />
-      <workItem from="1622993096679" duration="19770000" />
+      <workItem from="1622993096679" duration="20565000" />
+      <workItem from="1623049852004" duration="54000" />
+      <workItem from="1623077157794" duration="2156000" />
     </task>
     <servers />
   </component>
@@ -120,23 +134,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/game/Worker.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="2" />
+          <line>75</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/game/Worker.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="3" />
+          <line>118</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/game/Worker.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/game/Worker.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="5" />
+          <line>100</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -30,7 +30,7 @@ public class JDAHelper {
   public static MessageEmbed getBoardEmbed(String board){
     EmbedBuilder embedBuilder = new EmbedBuilder();
 
-    embedBuilder.setTitle("Game State");
+    embedBuilder.setTitle("Nine !!!");
     embedBuilder.setColor(Color.YELLOW);
     embedBuilder.setDescription(board);
 

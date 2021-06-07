@@ -1,7 +1,10 @@
 package game;
 
 import constants.Movement;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -61,7 +64,7 @@ public class Worker {
     int[][] state = player.getState();
     for(int i=0;i<4;i++)
       for(int j=0;j<4;j++){
-        if(state[i][j] == 1024)
+        if(state[i][j] == 9)
           return true;
       }
     return false;
@@ -73,14 +76,14 @@ public class Worker {
     List<Pair> vacant = new ArrayList<>();
     for(int i=0;i<4;i++)
       for(int j=0;j<4;j++)
-        if(state[i][j] == 0) {
+        if(state[i][j] == -1) {
           vacant.add(new Pair(i, j));
         }
 
     if(vacant.size()==0)
       return "over";
     int randomIndex = new Random().nextInt(vacant.size());
-    state[vacant.get(randomIndex).x][vacant.get(randomIndex).y] = 2;
+    state[vacant.get(randomIndex).x][vacant.get(randomIndex).y] = 0;
     return "continue";
   }
 
@@ -96,14 +99,15 @@ public class Worker {
 
   private int[] transform(int[] list){
     int[] finalList = new int[4];
+    Arrays.fill(finalList, -1);
     int index=0;
     for(int item : list) {
-      if(item != 0){
+      if(item != -1){
         if(finalList[index]==item){
-          finalList[index]+=item;
+          finalList[index]+=1;
           index++;
         }
-        else if(finalList[index]!=item && finalList[index]!=0){
+        else if(finalList[index]!=item && finalList[index]!=-1){
           index++;
           finalList[index]=item;
         }
