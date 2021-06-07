@@ -48,7 +48,7 @@ public class Application extends ListenerAdapter {
 
   public static void main(String[] args) throws LoginException {
 
-    String token = args[0];
+    String token = System.getenv().get("token");;
 
     JDABuilder.createLight(token)
       .addEventListeners(new Application())
