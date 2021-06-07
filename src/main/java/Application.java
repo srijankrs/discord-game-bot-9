@@ -20,11 +20,15 @@ import java.util.Map;
 import java.util.Set;
 
 import static constants.ApplicationConstants.DOWN;
+import static constants.ApplicationConstants.DOWN2;
 import static constants.ApplicationConstants.LEFT;
+import static constants.ApplicationConstants.LEFT2;
 import static constants.ApplicationConstants.QUIT;
 import static constants.ApplicationConstants.RIGHT;
+import static constants.ApplicationConstants.RIGHT2;
 import static constants.ApplicationConstants.START;
 import static constants.ApplicationConstants.UP;
+import static constants.ApplicationConstants.UP2;
 import static helper.JDAHelper.getBoardEmbed;
 import static helper.JDAHelper.getExitEmbed;
 import static helper.JDAHelper.getGameOverEmbed;
@@ -44,7 +48,7 @@ public class Application extends ListenerAdapter {
 
   private Worker worker = new Worker();
 
-  private Set<String> inputs = Set.of(UP, DOWN, RIGHT, LEFT, START, QUIT);
+  private Set<String> inputs = Set.of(UP, DOWN, RIGHT, LEFT, START, QUIT, UP2, DOWN2, RIGHT2, LEFT2);
 
   public static void main(String[] args) throws LoginException {
 
@@ -160,11 +164,11 @@ public class Application extends ListenerAdapter {
   }
 
   private Movement getMovement(String movement){
-    if(UP.equalsIgnoreCase(movement))
+    if(UP.equalsIgnoreCase(movement) || UP2.equalsIgnoreCase(movement))
       return Movement.UP;
-    else if(DOWN.equalsIgnoreCase(movement))
+    else if(DOWN.equalsIgnoreCase(movement) || DOWN2.equalsIgnoreCase(movement))
       return Movement.DOWN;
-    else if(RIGHT.equalsIgnoreCase(movement))
+    else if(RIGHT.equalsIgnoreCase(movement) || RIGHT2.equalsIgnoreCase(movement))
       return Movement.RIGHT;
     else
       return Movement.LEFT;
