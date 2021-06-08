@@ -18,6 +18,7 @@ public class Player {
   private static String smallSpacing = "  \t";
   private static String halfSmallSpacing = "   ";
   private static String bigSpacing = "            ";
+  private final String id;
 
   static {
     valueMapper.put(-1, ":black_large_square:");
@@ -35,13 +36,16 @@ public class Player {
 
   private int[][] state = new int[4][4];
 
-  public Player() {
+  public Player(String id) {
+    this.id = id;
     for (int i = 0; i < 4; i++)
       for (int j = 0; j < 4; j++) {
         state[i][j] = -1;
       }
 
-//    state[1][1] = 8;
+
+
+    state[2][2] = 0;
 //    state[1][2] = 7;
 //    state[1][3] = 7;
   }
