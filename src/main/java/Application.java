@@ -1,6 +1,7 @@
 import constants.Movement;
 import game.Player;
 import game.Worker;
+import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -13,8 +14,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.BasicConfigurator;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.login.LoginException;
@@ -40,10 +40,8 @@ import static helper.JDAHelper.getWinnerEmbed;
  * @author Srijan
  */
 
-//@Slf4j
+@Slf4j
 public class Application extends ListenerAdapter {
-
-  Logger log = LoggerFactory.getLogger(Application.class);
 
   private Map<String, String> players = new HashMap<>();
   private Map<String, Player> messageToBoard = new HashMap<>();
@@ -53,8 +51,8 @@ public class Application extends ListenerAdapter {
   private Set<String> inputs = Set.of(START, QUIT, INSTRUCTIONS, INSTRUCTIONS2);
 
   public static void main(String[] args) throws LoginException {
-
-    String token = System.getenv().get("token");;
+    BasicConfigurator.configure();
+    String token = System.getenv().get("token");
 
     JDABuilder.createLight(token)
       .addEventListeners(new Application())
@@ -62,39 +60,34 @@ public class Application extends ListenerAdapter {
       .build();
 
 
-    System.out.println("hey");
+    log.debug("--- STARTED ----");
   }
 
-  private void onReaction(GenericMessageEvent event, MessageReaction.ReactionEmote emote, User user){
-    try{
+  private void onReaction(GenericMessageEvent event, MessageReaction.ReactionEmote emote, User user) {
+    try {
       String input = emote.getEmoji();
-      System.out.println("Emote reaction received" + event.getMessageId()+ " ");
-      System.out.println("Emote - " + input);
+      log.debug("Emote reaction received" + event.getMessageId() + " " + input);
       MessageChannel channel = event.getChannel();
-      if(event.isFromType(ChannelType.PRIVATE) && !user.isBot()) {
-//        event.getReaction().removeReaction(event.getUser()).queue();
-        System.out.println("emote 2");
+      if (event.isFromType(ChannelType.PRIVATE) && !user.isBot()) {
         Movement movement = this.getMovement(input);
-        log.error("MessageId {}", event.getMessageId());
+        log.debug("Emote MessageId {}", event.getMessageId());
 
         Player player = this.messageToBoard.get(event.getMessageId());
         String status = "error";
-        try{
+        try {
           status = worker.makeMovement(movement, player);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
           e.printStackTrace();
         }
 
-        try{
+        try {
           channel.editMessageById(event.getMessageId(), getBoardEmbed(player.toString()))
             .queue(response -> {
               log.info("{}", response);
-              System.out.println(response);
             });
 
-          System.out.println("Status : "+status);
-          if(status.equalsIgnoreCase("error")){
+          log.debug("Status : " + status);
+          if (status.equalsIgnoreCase("error")) {
             channel.sendMessage("Some Error occurred !!")
               .queue(response -> {
                 log.info("{}", response);
@@ -102,16 +95,14 @@ public class Application extends ListenerAdapter {
 
             String id = messageToBoard.remove(event.getMessageId()).getId();
             players.remove(id);
-          }
-          else if(status.equalsIgnoreCase("over")){
+          } else if (status.equalsIgnoreCase("over")) {
             channel.sendMessage(getGameOverEmbed())
               .queue(response -> {
                 log.info("{}", response);
               });
             String id = messageToBoard.remove(event.getMessageId()).getId();
             players.remove(id);
-          }
-          else if(status.equalsIgnoreCase("win")){
+          } else if (status.equalsIgnoreCase("win")) {
             channel.sendMessage(getWinnerEmbed())
               .queue(response -> {
                 log.info("{}", response);
@@ -119,13 +110,11 @@ public class Application extends ListenerAdapter {
             String id = messageToBoard.remove(event.getMessageId()).getId();
             players.remove(id);
           }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
           e.printStackTrace();
         }
       }
-    }
-    catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
@@ -143,17 +132,15 @@ public class Application extends ListenerAdapter {
   }
 
   @Override
-  public void onMessageReceived(MessageReceivedEvent event)
-  {
+  public void onMessageReceived(MessageReceivedEvent event) {
     MessageChannel channel = event.getChannel();
     Message msg = event.getMessage();
 
-    System.out.println("ignore " + msg.getMember() + " "+ msg.getId());
-    if(event.getAuthor().isBot() || !event.getAuthor().hasPrivateChannel())
+    log.debug("Message - " + msg.getMember() + " " + msg.getId());
+    if (event.getAuthor().isBot() || !event.getAuthor().hasPrivateChannel())
       return;
-    System.out.println("hey - "+ msg.getContentRaw());
-    if(!inputs.contains(msg.getContentRaw().trim())) {
-      channel.sendMessage("Please enter `"+INSTRUCTIONS+"` for instructions")
+    if (!inputs.contains(msg.getContentRaw().trim())) {
+      channel.sendMessage("Please enter `" + INSTRUCTIONS + "` for instructions")
         .queue(response -> {
           log.info("{}", response);
         });
@@ -162,7 +149,7 @@ public class Application extends ListenerAdapter {
 
     String input = msg.getContentRaw();
 
-    if(INSTRUCTIONS.equalsIgnoreCase(input) || INSTRUCTIONS2.equalsIgnoreCase(input)){
+    if (INSTRUCTIONS.equalsIgnoreCase(input) || INSTRUCTIONS2.equalsIgnoreCase(input)) {
       channel.sendMessage(getInstructionEmbed())
         .queue(response -> {
           log.info("{}", response);
@@ -171,45 +158,42 @@ public class Application extends ListenerAdapter {
     }
 
 
-    if(START.equalsIgnoreCase(input) ){
-      if(players.containsKey(event.getAuthor().getAvatarId())) {
+    if (START.equalsIgnoreCase(input)) {
+      if (players.containsKey(event.getAuthor().getAvatarId())) {
         return;
       }
-        try{
-          channel.sendMessage(getWelcomeEmbed())
-            .queue(response -> {
-              Player player = new Player(event.getAuthor().getAvatarId());
-              channel.sendMessage(getBoardEmbed(player.toString()))
-                .queue(response2 -> {
+      try {
+        channel.sendMessage(getWelcomeEmbed())
+          .queue(response -> {
+            Player player = new Player(event.getAuthor().getAvatarId());
+            channel.sendMessage(getBoardEmbed(player.toString()))
+              .queue(response2 -> {
 
-                  players.put(event.getAuthor().getAvatarId(), response2.getId());
-                  messageToBoard.put(response2.getId(), player);
+                players.put(event.getAuthor().getAvatarId(), response2.getId());
+                messageToBoard.put(response2.getId(), player);
 
-                  response2.addReaction("⬅️").queue();
-                  response2.addReaction("➡️").queue();
-                  response2.addReaction("⬇️").queue();
-                  response2.addReaction("⬆️").queue();
-                });
-            });
+                response2.addReaction("⬅️").queue();
+                response2.addReaction("➡️").queue();
+                response2.addReaction("⬇️").queue();
+                response2.addReaction("⬆️").queue();
+              });
+          });
 
 
-        }
-        catch (Exception e){
-          e.printStackTrace();
-        }
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
 
-    }
-    else if(QUIT.equalsIgnoreCase(input)){
-      if(players.containsKey(event.getAuthor().getAvatarId())) {
+    } else if (QUIT.equalsIgnoreCase(input)) {
+      if (players.containsKey(event.getAuthor().getAvatarId())) {
         channel.sendMessage(getExitEmbed())
           .queue(response -> {
             log.info("{}", response);
           });
         players.remove(event.getAuthor().getAvatarId());
       }
-    }
-    else if(!players.containsKey(event.getAuthor().getAvatarId())) {
-      channel.sendMessage("Please enter `"+INSTRUCTIONS+"` for instructions")
+    } else if (!players.containsKey(event.getAuthor().getAvatarId())) {
+      channel.sendMessage("Please enter `" + INSTRUCTIONS + "` for instructions")
         .queue(response -> {
           log.info("{}", response);
         });
@@ -217,17 +201,14 @@ public class Application extends ListenerAdapter {
 
   }
 
-  private Movement getMovement(String movement){
-    if(UP.equalsIgnoreCase(movement))
+  private Movement getMovement(String movement) {
+    if (UP.equalsIgnoreCase(movement))
       return Movement.UP;
-    else if(DOWN.equalsIgnoreCase(movement))
+    else if (DOWN.equalsIgnoreCase(movement))
       return Movement.DOWN;
-    else if(RIGHT.equalsIgnoreCase(movement))
+    else if (RIGHT.equalsIgnoreCase(movement))
       return Movement.RIGHT;
     else
       return Movement.LEFT;
   }
-
-
-
 }
