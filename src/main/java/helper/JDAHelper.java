@@ -16,10 +16,10 @@ public class JDAHelper {
     embedBuilder.setColor(Color.BLUE);
     embedBuilder.setDescription("Please use the below commands to play the game-" +
       "\n`i` or `I` - For Instructions" +
-      "\n`a` or `A` - Move all blocks to left" +
-      "\n`d` or `D` - Move all blocks to right" +
-      "\n`w` or `W` - Move all blocks to up" +
-      "\n`s` or `S` - Move all blocks to down" +
+      "\n`\u2B05\uFE0F` - Move all blocks to left" +
+      "\n`\u27A1\uFE0F` - Move all blocks to right" +
+      "\n`\u2B06\uFE0F` - Move all blocks to up" +
+      "\n`\u2B07\uFE0F` - Move all blocks to down" +
       "\n`!quit` - To quit the game");
 
     return embedBuilder.build();
@@ -33,10 +33,10 @@ public class JDAHelper {
     embedBuilder.setDescription("Please use the below commands to play the game-" +
       "\n`i` or `I` - For Instructions" +
       "\n`!start` - To start the game" +
-      "\n`a` or `A` - Move all blocks to left" +
-      "\n`d` or `D` - Move all blocks to right" +
-      "\n`w` or `W` - Move all blocks to up" +
-      "\n`s` or `S` - Move all blocks to down" +
+      "\n`\u2B05\uFE0F` - Move all blocks to left" +
+      "\n`\u27A1\uFE0F` - Move all blocks to right" +
+      "\n`\u2B06\uFE0F` - Move all blocks to up" +
+      "\n`\u2B07\uFE0F` - Move all blocks to down" +
       "\n`!quit` - To quit the game");
 
     return embedBuilder.build();
