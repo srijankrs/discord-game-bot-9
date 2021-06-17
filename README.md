@@ -1,4 +1,4 @@
-# Nine - Game
+# Nine - A Discord Game Bot
 This is a discord game(bot). You can play the game by typing `!start`.
 
 
